@@ -7,7 +7,7 @@ import 'package:tastysoda/src/provider/bluesky/bluesky.dart';
 final blueskyActorProfileProvider = AsyncNotifierProvider.autoDispose
     .family<BlueskyActorProfileNotifier, ActorProfile, String>(
   BlueskyActorProfileNotifier.new,
-  dependencies: [blueskySessionProvider],
+  dependencies: [blueskyProvider],
 );
 
 class BlueskyActorProfileNotifier
@@ -18,7 +18,7 @@ class BlueskyActorProfileNotifier
   }
 
   Future<void> fetch() async {
-    final session = ref.read(blueskySessionProvider);
+    final session = await ref.read(blueskyProvider.future);
     if (session == null) return;
     state = AsyncData((await session.actor.getProfile(actor: arg)).data);
   }

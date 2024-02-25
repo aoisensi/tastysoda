@@ -52,16 +52,15 @@ class SettingsPage extends HookConsumerWidget {
   }
 
   Widget _bskySessionsListView(BuildContext context, WidgetRef ref) {
-    final bskySessions = ref.watch(blueskySessionsProvider);
-    switch (bskySessions) {
+    switch (ref.watch(blueskyListProvider)) {
       case AsyncData(:final value):
-        final myDids = value.keys.toList();
         return ListView.builder(
-          itemCount: myDids.length,
+          itemCount: value.length,
           itemBuilder: (context, index) {
             return ProviderScope(
               overrides: [
-                blueskyMyDidProvider.overrideWithValue(myDids[index]),
+                blueskyCurrentDidProvider
+                    .overrideWithValue(value[index].$2.did),
               ],
               child: const _BlueskySelfProfileListItem(),
             );
@@ -81,7 +80,7 @@ class _BlueskySelfProfileListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(blueskyMyDidProvider);
+    final me = ref.watch(blueskyCurrentDidProvider);
     ref.watch(blueskyActorProfileProvider(me).notifier).fetch();
 
     final profile = ref.watch(blueskyActorProfileProvider(me));
