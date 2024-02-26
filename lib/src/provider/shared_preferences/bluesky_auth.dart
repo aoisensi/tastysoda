@@ -23,6 +23,10 @@ class BlueskyAuthNotifier
   void add(BlueskyCredentials credentials) {
     state = [...state, credentials];
   }
+
+  void remove(String handle) {
+    state = state.where((c) => c.handle != handle).toList();
+  }
 }
 
 class BlueskyCredentials {

@@ -18,7 +18,7 @@ class BlueskyActorProfileNotifier
   }
 
   Future<void> fetch() async {
-    final session = await ref.read(blueskyProvider.future);
+    final session = await ref.watch(blueskyProvider.future);
     if (session == null) return;
     state = AsyncData((await session.actor.getProfile(actor: arg)).data);
   }

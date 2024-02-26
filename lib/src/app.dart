@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tastysoda/src/page/home_page.dart';
+import 'package:tastysoda/src/widget/home_page.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});

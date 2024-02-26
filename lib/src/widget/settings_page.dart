@@ -91,7 +91,12 @@ class _BlueskySelfProfileListItem extends ConsumerWidget {
           leading: CircleAvatar(
             backgroundImage: NetworkImage(value.avatar ?? ''),
           ),
-        ),
+          trailing: IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              ref.read(blueskyAuthProvider.notifier).remove(value.handle);
+            },
+          )),
       AsyncError(:final error) => Text('Error: $error'),
       _ => const ListTile(
           leading: CircularProgressIndicator(),
