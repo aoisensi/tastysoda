@@ -9,7 +9,6 @@ class BlueskyActorRepo {
       'actor': did,
     });
     final json = jsonDecode(response.body) as Map<String, dynamic>;
-    _repo.ref.read(blueskyCacheProfileProvider(did).notifier).state =
-        json['description'];
+    BlueskyProfileNotifier.cache(_repo.ref, json);
   }
 }

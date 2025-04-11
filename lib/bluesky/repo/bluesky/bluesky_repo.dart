@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../pod/bluesky_cache_actor_profile.dart';
+import '../../pod/bluesky_actor_profile.dart';
 import '../atproto/atproto_base_repo.dart';
 
 part 'bluesky_actor_repo.dart';

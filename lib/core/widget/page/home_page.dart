@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../bluesky/pod/bluesky_cache_actor_profile.dart';
+import '../../../bluesky/pod/bluesky_actor_profile.dart';
 import '../../../bluesky/pod/bluesky_pod.dart';
 import '../../../bluesky/widget/dialog/bluesky_login_dialog.dart';
+import '../../../bluesky/widget/view/bluesky_post_profile_view.dart';
 import '../../pod/prefs/prefs_bluesky_pod.dart';
 
 final isNoLoginAccountPod = Provider((ref) {
@@ -40,7 +41,7 @@ class HomePage extends ConsumerWidget {
                   final value = ref.watch(blueskyProfilePod(did));
                   return ListTile(
                     title: value.when(
-                      data: (data) => Text(data),
+                      data: BlueskyPostProfileView.new,
                       error: (error, st) => Text(error.toString()),
                       loading: () => const Text('loading'),
                     ),
