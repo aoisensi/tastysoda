@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../bluesky/pod/bluesky_actor_profile.dart';
+import '../../../bluesky/pod/bluesky_actor_profile_pod.dart';
 import '../../../bluesky/pod/bluesky_pod.dart';
 import '../../../bluesky/widget/dialog/bluesky_login_dialog.dart';
 import '../../../bluesky/widget/view/bluesky_post_profile_view.dart';
