@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class PostProfileView extends StatelessWidget {
+class PostProfileView extends StatelessWidget {
   final Widget avatar;
   final String name;
   final String id;
@@ -15,7 +15,7 @@ abstract class PostProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           avatar,

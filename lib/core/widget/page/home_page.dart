@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../bluesky/pod/bluesky_actor_profile_pod.dart';
 import '../../../bluesky/pod/bluesky_pod.dart';
+import '../../../bluesky/widget/activity/bluesky_feed_activity.dart';
 import '../../../bluesky/widget/dialog/bluesky_login_dialog.dart';
-import '../../../bluesky/widget/view/bluesky_post_profile_view.dart';
 import '../../pod/prefs/prefs_bluesky_pod.dart';
 
 final isNoLoginAccountPod = Provider((ref) {
@@ -29,28 +28,17 @@ class HomePage extends ConsumerWidget {
     final dids = ref.watch(blueskyDidsPod);
     return Scaffold(
       appBar: AppBar(title: const Text('Home Page')),
-      body: Center(
-        child: ListView.builder(
-          itemCount: dids.valueOrNull?.length ?? 0,
-          itemBuilder: (_, index) {
-            final did = dids.value![index];
-            return ProviderScope(
-              overrides: [blueskyDidPod.overrideWithValue(did)],
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final value = ref.watch(blueskyProfilePod(did));
-                  return ListTile(
-                    title: value.when(
-                      data: BlueskyPostProfileView.new,
-                      error: (error, st) => Text(error.toString()),
-                      loading: () => const Text('loading'),
-                    ),
-                  );
-                },
+      body: Row(
+        children: [
+          for (final did in dids.valueOrNull ?? [])
+            SizedBox(
+              width: 360,
+              child: ProviderScope(
+                overrides: [blueskyDidPod.overrideWithValue(did)],
+                child: const BlueskyFeedActivity(),
               ),
-            );
-          },
-        ),
+            ),
+        ],
       ),
     );
   }
