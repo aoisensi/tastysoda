@@ -3,7 +3,7 @@ import '../../entity/response/bluesky_profile.dart';
 import 'bluesky_avatar_view.dart';
 
 class BlueskyPostProfileView extends PostProfileView {
-  BlueskyPostProfileView(BlueskyProfile profile, {super.key})
+  BlueskyPostProfileView(BlueskyProfile profile, {super.key, super.timestamp})
     : super(
         avatar: BlueskyAvatarView(profile: profile),
         name: profile.displayName ?? '@${profile.handle}',

@@ -17,21 +17,26 @@ class BlueskyPostView extends ConsumerWidget {
     final post = ref.watch(blueskyFeedPostPod(reason.uri));
     switch (post) {
       case AsyncData(:final value):
+        final post = value;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer(
               builder: (context, ref, child) {
-                switch (ref.watch(blueskyActorProfilePod(value.authorDid))) {
+                switch (ref.watch(blueskyActorProfilePod(post.authorDid))) {
                   case AsyncData(:final value):
-                    return BlueskyPostProfileView(value);
+                    final profile = value;
+                    return BlueskyPostProfileView(
+                      profile,
+                      timestamp: post.createdAt,
+                    );
                   case AsyncError(:final error):
                     return Center(child: Text(error.toString()));
                   case AsyncLoading():
                     return PostProfileView(
                       avatar: const CircularProgressIndicator(),
                       name: 'Loading...',
-                      id: value.authorDid,
+                      id: post.authorDid,
                     );
                   default:
                     return const Center(child: Text('Unknown state'));
