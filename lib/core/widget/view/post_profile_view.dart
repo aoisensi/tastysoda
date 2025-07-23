@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'timestamp_view.dart';
 
@@ -25,30 +24,38 @@ class PostProfileView extends StatelessWidget {
         children: [
           avatar,
           const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  if (timestamp != null) TimeStampView(timestamp: timestamp!),
-                ],
-              ),
-              Text(
-                id,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).textTheme.labelSmall?.color,
+                    if (timestamp != null) const SizedBox(width: 8.0),
+                    if (timestamp != null) TimeStampView(timestamp: timestamp!),
+                  ],
                 ),
-              ),
-            ],
+                Text(
+                  id,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).textTheme.labelSmall?.color,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

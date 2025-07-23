@@ -18,9 +18,21 @@ class BlueskyPostView extends ConsumerWidget {
     switch (post) {
       case AsyncData(:final value):
         final post = value;
+        final top = switch (reason) {
+          BlueskyPostReasonRepost(:final by) => Padding(
+            padding: const EdgeInsetsGeometry.only(left: 56.0, right: 8.0),
+            child: Text('Reposted by @$by'),
+          ),
+          BlueskyPostReasonPin() => const Padding(
+            padding: EdgeInsetsGeometry.only(left: 56.0, right: 8.0),
+            child: Text('Pinned post'),
+          ),
+          _ => null,
+        };
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (top != null) top,
             Consumer(
               builder: (context, ref, child) {
                 switch (ref.watch(blueskyActorProfilePod(post.authorDid))) {
